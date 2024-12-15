@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Website</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+    
+
+    <div class="wrapper">
+        <div class="heading">QUIZ APPLICATION</div>
+        <div class="quiz-section">
+            <h1 class="question">quiz question</h1>
+            <div class="gap"></div>
+            <div class="answer-section">
+                <ul>
+                    <li>
+                        <input type="radio" name="answer" class="answer" id="a">
+                        <label for="a" class="option" id="option1">option1</label>
+                    </li>
+                    <li>
+                        <input type="radio" name="answer" class="answer" id="b">
+                        <label for="b" class="option" id="option2">option2</label>
+                    </li>
+                    <li>
+                        <input type="radio" name="answer" class="answer" id="c">
+                        <label for="c" class="option" id="option3">option3</label>
+                    </li>
+                    <li>
+                        <input type="radio" name="answer" class="answer" id="d">
+                        <label for="d" class="option" id="option4">option4</label>
+                    </li>
+                </ul>
+            </div>
+            <div class="gap"></div>
+            
+            <button id="btn">Submit</button>
+        </div>
+
+        <div class="result " >
+                <h2>Your Score: <span class="scoreSection"></span></h2>
+                <p>Congratulations on completing quiz! <img src="./images/party-popper.svg" height="12" width="12" alt=""> <img src="./images/confetti-ball.svg" height="12" width="12" alt="">
+                </p>
+                <button class="reload-button" onclick="reload()">Play Again</button>
+            </div>
+
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+</html>
