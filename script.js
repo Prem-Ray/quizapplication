@@ -179,6 +179,7 @@ button.addEventListener('click',(e)=>{
 function reload(){
     document.querySelector('.result').classList.remove('active') ;
     currentQuiz=0 ;
+    score=0 ;
     deSelectAnswer() ;
     loadQuiz() ;
     document.querySelector('.quiz-section').style.display='block' ;
