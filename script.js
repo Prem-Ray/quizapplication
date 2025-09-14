@@ -56,7 +56,7 @@ const quizData = [
   },
 ];
 
-const quizquestion = document.querySelector(".question");
+const questions = document.querySelector(".question");
 const answers = document.querySelectorAll(".answer");
 const optionLabels = ["#option1", "#option2", "#option3", "#option4"].map(
   (id) => document.querySelector(id)
@@ -66,12 +66,12 @@ const resultSection = document.querySelector(".result");
 const scoreSection = document.querySelector(".scoreSection");
 const resultMessage = resultSection.querySelector("p");
 const startBtn = document.getElementById("startBtn");
-const introductionSection = document.querySelector(".introduction-section");
+const introSection = document.querySelector(".introduction-section");
 const quizSection = document.querySelector(".quiz-section");
-const clockElement = document.getElementById("clock");
-const timeTakenElement = document.getElementById("timeTaken");
-const viewGuidelinesBtn = document.getElementById("viewGuidelinesBtn");
-const guidelinesModal = document.getElementById("guidelinesModal");
+const clock = document.getElementById("clock");
+const totaltime = document.getElementById("timeTaken");
+const guideBtn = document.getElementById("viewGuidelinesBtn");
+const guideModal = document.getElementById("guidelinesModal");
 
 let currentQuiz = 0;
 let score = 0;
@@ -81,23 +81,25 @@ let examStarted = false;
 let timer;
 let totalSeconds = 0;
 
-viewGuidelinesBtn.addEventListener("click", () => {
-  guidelinesModal.classList.add("active");
-  guidelinesModal.focus();
+guideBtn.addEventListener("click", () => {
+  guideModal.classList.add("active");
+  guideModal.focus();
 });
-guidelinesModal.addEventListener("click", (e) => {
-  if (e.target === guidelinesModal) guidelinesModal.classList.remove("active");
+
+guideModal.addEventListener("click", (e) => {
+  if (e.target === guideModal) guideModal.classList.remove("active");
 });
+
 document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && guidelinesModal.classList.contains("active")) {
-    guidelinesModal.classList.remove("active");
+  if (e.key === "Escape" && guideModal.classList.contains("active")) {
+    guideModal.classList.remove("active");
   }
 });
 
 function loadQuiz() {
   if (!examStarted) return;
   const { question, options } = quizData[currentQuiz];
-  quizquestion.innerText = `${currentQuiz + 1}: ${question}`;
+  questions.innerText = `${currentQuiz + 1}: ${question}`;
   optionLabels.forEach((label, i) => (label.innerText = options[i]));
   deSelectAnswer();
   resultSection.style.display = "none";
@@ -118,10 +120,10 @@ function deSelectAnswer() {
 
 function startTimer() {
   totalSeconds = 0;
-  clockElement.textContent = "Time: 00:00";
+  clock.textContent = "Time: 00:00";
   timer = setInterval(() => {
     totalSeconds++;
-    clockElement.textContent = "Time: " + formatTime(totalSeconds);
+    clock.textContent = "Time: " + formatTime(totalSeconds);
   }, 1000);
 }
 
@@ -158,7 +160,7 @@ function showResultSection(scoreText, messageText) {
   stopTimer();
   scoreSection.innerText = scoreText;
   resultMessage.innerText = messageText;
-  timeTakenElement.textContent = formatTime(totalSeconds);
+  totaltime.textContent = formatTime(totalSeconds);
   quizSection.style.display = "none";
   resultSection.style.display = "block";
 }
@@ -181,12 +183,12 @@ button.addEventListener("click", () => {
 });
 
 startBtn.addEventListener("click", () => {
-  guidelinesModal.classList.remove("active");
+  guideModal.classList.remove("active");
   examStarted = true;
   cheatingWarnings = 0;
   currentQuiz = 0;
   score = 0;
-  introductionSection.style.display = "none";
+  introSection.style.display = "none";
   quizSection.style.display = "block";
   loadQuiz();
   startTimer();
@@ -200,8 +202,8 @@ function reload() {
   deSelectAnswer();
   resultSection.style.display = "none";
   quizSection.style.display = "none";
-  introductionSection.style.display = "block";
-  clockElement.textContent = "Time: 00:00";
+  introSection.style.display = "block";
+  clock.textContent = "Time: 00:00";
   totalSeconds = 0;
   stopTimer();
 }
@@ -239,7 +241,7 @@ const blockedKeys = [
   "Meta",
   "Alt",
 ];
-const blockedCombos = [
+const blockedCombinations = [
   { ctrl: true, key: "u" },
   { ctrl: true, key: "i" },
   { ctrl: true, key: "c" },
@@ -270,7 +272,7 @@ document.addEventListener("keydown", (e) => {
     endQuizWithCheating("Blocked key detected.");
   }
   if (
-    blockedCombos.some(
+    blockedCombinations.some(
       (combo) =>
         !!combo.ctrl === (e.ctrlKey || e.metaKey) &&
         e.key.toLowerCase() === combo.key
