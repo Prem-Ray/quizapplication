@@ -230,15 +230,17 @@ if (isMobile) {
   window.addEventListener("focus", () => {
     clearTimeout(blurTimeout);
   });
+}else{
+    document.addEventListener("visibilitychange", () => {
+    if (examStarted && document.hidden) {
+      endQuizWithCheating("You switched tabs or minimized the browser.");
+    }
+  });
 }
 
 
 
-document.addEventListener("visibilitychange", () => {
-  if (examStarted && document.hidden) {
-    endQuizWithCheating("You switched tabs or minimized the browser.");
-  }
-});
+
 
 document.addEventListener("contextmenu", (e) => {
   if (examStarted) {
