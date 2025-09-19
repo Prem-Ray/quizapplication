@@ -208,6 +208,22 @@ function reload() {
   stopTimer();
 }
 
+let blurTimeout;
+
+window.addEventListener("blur", () => {
+  if (examStarted) {
+    blurTimeout = setTimeout(() => {
+      endQuizWithCheating(
+        "Cheating detected: You switched away from the quiz."
+      );
+    }, 1000); 
+  }
+});
+
+window.addEventListener("focus", () => {
+  clearTimeout(blurTimeout);
+});
+
 document.addEventListener("visibilitychange", () => {
   if (examStarted && document.hidden) {
     endQuizWithCheating("You switched tabs or minimized the browser.");
