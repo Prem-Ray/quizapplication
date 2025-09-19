@@ -177,7 +177,7 @@ button.addEventListener("click", () => {
     examStarted = false;
     showResultSection(
       `${score}/${quizData.length} Correct Answers`,
-      "🎉🎊 Congratulations on completing the quiz!"
+      "🎉Congratulations on completing the quiz! 🎊 "
     );
   }
 });
