@@ -208,13 +208,20 @@ function reload() {
   stopTimer();
 }
 
-let blurTimeout;
 const isMobile = /Mobi|Android|iPhone/i.test(navigator.userAgent);
 
 if (isMobile) {
+  let lastBlurTime = 0;
+  let blurTimeout;
+
   window.addEventListener("blur", () => {
     if (examStarted) {
       blurTimeout = setTimeout(() => {
+        const now = Date.now();
+
+        if (now - lastBlurTime < 2000) return;
+        lastBlurTime = now;
+
         endQuizWithCheating("Cheating detected: You switched away from the quiz (mobile).");
       }, 1000); 
     }
@@ -224,6 +231,7 @@ if (isMobile) {
     clearTimeout(blurTimeout);
   });
 }
+
 
 
 document.addEventListener("visibilitychange", () => {
