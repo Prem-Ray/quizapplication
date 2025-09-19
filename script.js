@@ -209,20 +209,22 @@ function reload() {
 }
 
 let blurTimeout;
+const isMobile = /Mobi|Android|iPhone/i.test(navigator.userAgent);
 
-window.addEventListener("blur", () => {
-  if (examStarted) {
-    blurTimeout = setTimeout(() => {
-      endQuizWithCheating(
-        "Cheating detected: You switched away from the quiz."
-      );
-    }, 1000); 
-  }
-});
+if (isMobile) {
+  window.addEventListener("blur", () => {
+    if (examStarted) {
+      blurTimeout = setTimeout(() => {
+        endQuizWithCheating("Cheating detected: You switched away from the quiz (mobile).");
+      }, 1000); 
+    }
+  });
 
-window.addEventListener("focus", () => {
-  clearTimeout(blurTimeout);
-});
+  window.addEventListener("focus", () => {
+    clearTimeout(blurTimeout);
+  });
+}
+
 
 document.addEventListener("visibilitychange", () => {
   if (examStarted && document.hidden) {
